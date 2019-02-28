@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GoogleHashCode2019.Classes;
+
 namespace GoogleHashCode2019.Helpers
 {
     public static class Helper
     {
-        public static int GetIntersectWeight(List<string> l1, List<string> l2)
+        public static Stats GetIntersectWeight(Photo p1, Photo p2)
         {
-            int result = 0;
-            result = l1.Intersect(l2).Count();
-            return result;
+            Stats stats = new Stats
+            {
+                Common = p1.Tags.Intersect(p2.Tags).Count()
+            };
+            stats.MinDiff = Math.Min(p1.Tags.Count - stats.Common, p2.Tags.Count - stats.Common);
+            return stats;
         }
     }
 }

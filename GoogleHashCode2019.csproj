@@ -48,6 +48,7 @@
     <Compile Include="Classes\Photo.cs" />
     <Compile Include="Classes\Slide.cs" />
     <Compile Include="Helpers\Helper.cs" />
+    <Compile Include="Helpers\Stats.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
