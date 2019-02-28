@@ -104,62 +104,69 @@ namespace GoogleHashCode2019.Helpers
             {
                 Slide lastSlide = null;
                 List<Photo> copy = new List<Photo>(hPhoto);
-                Photo bestFromHor = null;
-                Slide tmpVSlide = null;
-
                 Photo last = copy.Last();
-                Stats curBestStats = new Stats();
-                Stats curBestPstats = new Stats();
-                int bestIndex = -1;
-                Stats s1 = new Stats();
-                for (int i = 0; i < copy.Count - 2; i++)
+                do
                 {
-                    Stats tmpStats = new Stats();
-                    Photo tmp = copy.ElementAt(i);
-                    tmpStats = GetIntersectWeight(last, tmp);
-                    if (tmpStats.MinDiff > s1.MinDiff)
+
+                    Photo bestFromHor = null;
+                    Slide tmpVSlide = null;
+                    
+                    Stats curBestStats = new Stats();
+                    Stats curBestPstats = new Stats();
+                    int bestIndex = -1;
+                    Stats s1 = new Stats();
+                    for (int i = 0; i < copy.Count - 2; i++)
                     {
-                        s1 = tmpStats;
-                        bestIndex = i;
-                        curBestStats = tmpStats;
+                        Stats tmpStats = new Stats();
+                        Photo tmp = copy.ElementAt(i);
+                        tmpStats = GetIntersectWeight(last, tmp);
+                        if (tmpStats.MinDiff > s1.MinDiff)
+                        {
+                            s1 = tmpStats;
+                            bestIndex = i;
+                            curBestStats = tmpStats;
+                        }
+
+                    }
+                    if (bestIndex != -1)
+                    {
+                        bestFromHor = copy.ElementAt(bestIndex);
                     }
 
-                }
-                if (bestIndex != -1)
-                {
-                    bestFromHor = copy.ElementAt(bestIndex);
-                }
 
-
-                foreach (var slide in vSlides)
-                {
-                    if (curBestPstats.MinDiff < GetStatsSH(bestFromHor, slide).MinDiff)
+                    foreach (var slide in vSlides)
                     {
-                        tmpVSlide = slide;
-                        curBestPstats = GetStatsSH(bestFromHor, slide);
+                        if (curBestPstats.MinDiff < GetStatsSH(bestFromHor, slide).MinDiff)
+                        {
+                            tmpVSlide = slide;
+                            curBestPstats = GetStatsSH(bestFromHor, slide);
+                        }
                     }
-                }
 
-                Slide lastPhotoSlide = new Slide();
-                lastPhotoSlide.Photos.Add(last);
-                result.Add(lastPhotoSlide);
+                    Slide lastPhotoSlide = new Slide();
+                    lastPhotoSlide.Photos.Add(last);
+                    result.Add(lastPhotoSlide);
+                    copy.Remove(last);
 
-                if (curBestStats.MinDiff < curBestPstats.MinDiff)
-                {
-                    //take vertical slide
-                    result.Add(tmpVSlide);
-                    lastSlide = tmpVSlide;
+                    if (curBestStats.MinDiff < curBestPstats.MinDiff)
+                    {
+                        //take vertical slide
+                        result.Add(tmpVSlide);
+                        lastSlide = tmpVSlide;
+                        vSlides.Remove(tmpVSlide);
+                    }
+                    else
+                    {
+                        Slide horPhotoSlide = new Slide();
+                        horPhotoSlide.Photos.Add(bestFromHor);
+                        result.Add(horPhotoSlide);
+                        lastSlide = horPhotoSlide;
+                        copy.Remove(bestFromHor);
+                    }
 
-                }
-                else
-                {
-                    Slide horPhotoSlide = new Slide();
-                    horPhotoSlide.Photos.Add(bestFromHor);
-                    result.Add(horPhotoSlide);
-                    lastSlide = horPhotoSlide;
-                }
+                    last = lastSlide.Photos.Last();
 
-
+                } while (vSlides.Count < 2 || copy.Count < 2);
 
             }
 
