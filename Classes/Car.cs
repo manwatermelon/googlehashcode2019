@@ -41,6 +41,6 @@ public class Car
 
     public int DistanceToRide(Ride ride)
     {
-        return Math.Abs(ride.startX - this.x) + Math.Abs(ride.startY - this.y); //check
+        return Math.Abs(ride.startX - this.x) + Math.Abs(ride.startY - this.y);
     }
 }
