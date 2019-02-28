@@ -22,6 +22,15 @@ namespace GoogleHashCode2019.Helpers
         {
             Stats res = new Stats();
 
+            var tmp = new List<string>();
+            foreach(var p in vS.Photos)
+            {
+                tmp.AddRange(p.Tags);
+            }
+            res.Common = hP.Tags.Intersect(tmp).Count();
+            res.MinDiff = Math.Min(hP.Tags.Count - res.Common, tmp.Count - res.Common);
+            res.MinDiff = Math.Min(res.MinDiff, res.Common);
+
             return res;
         }
 
