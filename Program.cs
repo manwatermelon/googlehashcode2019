@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GoogleHashCode2019.Classes;
 
 namespace googlehashcode2019 {
     class Program
@@ -20,7 +21,7 @@ namespace googlehashcode2019 {
                 var modifiedFileName = fileName.Split(".".ToCharArray()).FirstOrDefault();
 
                 int photoCount = 0;
-                List<string> lineList = new List<string>();
+                List<Photo> photoList = new List<Photo>();
 
                 using (var streamReader = File.OpenText(Program.RootPath + modifiedFileName + ".txt"))
                 {
@@ -30,8 +31,10 @@ namespace googlehashcode2019 {
                     for (int i = 1; i < lines.Count(); i++)
                     {
                         string line = lines[i];
-                        Console.WriteLine(lines[i]);
-                        lineList.Add(line);
+
+
+                        Photo photo = new Photo(line);
+                        photoList.Add(photo);
                     }
                 }
 

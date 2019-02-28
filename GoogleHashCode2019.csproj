@@ -47,6 +47,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classes\Car.cs" />
     <Compile Include="Classes\Ride.cs" />
+    <Compile Include="Classes\Photo.cs" />
+    <Compile Include="Classes\Slide.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
