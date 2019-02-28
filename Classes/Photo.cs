@@ -12,14 +12,15 @@ namespace GoogleHashCode2019.Classes
 
         public ePhotoOrientation Orientation;
         public List<string> Tags;
-        public int index;
+        public int Index;
+        public bool IsUsed;
 
         public Photo(string parameters, int index)
         {
             var a = parameters.Split(" ".ToCharArray());
             string orientationString = a[0];
 
-            this.index = index;
+            this.Index = index;
             this.Orientation = (ePhotoOrientation)Enum.Parse(typeof(ePhotoOrientation), a[0]);
 
             int tagCount = Int32.Parse(a[1]);
