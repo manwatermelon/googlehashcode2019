@@ -63,7 +63,8 @@ namespace GoogleHashCode2019.Helpers
         {
             List<Photo> copy = new List<Photo>(vPhotos);
             List<Slide> slides = new List<Slide>();
-            do
+
+            while (copy.Count > 2) 
             {
                 Photo last = copy.Last();
                 Photo best = null;
@@ -91,7 +92,7 @@ namespace GoogleHashCode2019.Helpers
                     copy.RemoveAt(bestIndex);
                 }
 
-            } while (copy.Count > 2);
+            } 
 
             return slides;
         }
@@ -100,7 +101,7 @@ namespace GoogleHashCode2019.Helpers
         {
             List<Slide> result = new List<Slide>();
 
-            if (hPhoto.Count > 0)
+            if (hPhoto.Count > 0 || vSlides.Count > 0)
             {
                 Slide lastSlide = null;
                 List<Photo> copy = new List<Photo>(hPhoto);
@@ -145,7 +146,7 @@ namespace GoogleHashCode2019.Helpers
 
                     Slide lastPhotoSlide = new Slide();
                     lastPhotoSlide.Photos.Add(last);
-                    result.Add(lastPhotoSlide);
+                    //result.Add(lastPhotoSlide);
                     copy.Remove(last);
 
                     if (curBestStats.MinDiff < curBestPstats.MinDiff)
