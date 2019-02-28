@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GoogleHashCode2019.Classes
 {
-    class Photo
+    public class Photo
     {
         public enum ePhotoOrientation { H = 0, V = 1 };
 
@@ -23,6 +23,13 @@ namespace GoogleHashCode2019.Classes
             this.Orientation = (ePhotoOrientation)Enum.Parse(typeof(ePhotoOrientation), a[0]);
 
             int tagCount = Int32.Parse(a[1]);
+
+            Tags = new List<string>();
+        }
+
+        public Photo()
+        {
+
         }
     }
 }

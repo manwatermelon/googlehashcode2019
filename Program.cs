@@ -22,6 +22,7 @@ namespace googlehashcode2019 {
 
                 int photoCount = 0;
                 List<Photo> photoList = new List<Photo>();
+                List<Photo> allPhotos = new List<Photo>();
 
                 using (var streamReader = File.OpenText(Program.RootPath + modifiedFileName + ".txt"))
                 {
@@ -31,10 +32,24 @@ namespace googlehashcode2019 {
                     for (int i = 1; i < lines.Count(); i++)
                     {
                         string line = lines[i];
+                        //Console.WriteLine(lines[i]);
+                        //lineList.Add(line);
+                        // Console.WriteLine(lines[i]);
+                        //lineList.Add(line);
 
+                        var a = line.Trim().Split(" ".ToCharArray());
+                        string ort = a[0];
 
-                        Photo photo = new Photo(line);
-                        photoList.Add(photo);
+                        Photo photoInstance = new Photo();
+                        photoInstance.Orientation = (ort.Equals("H") == true ? Photo.ePhotoOrientation.H : Photo.ePhotoOrientation.V);
+
+                        for (int j = 2; j < a.Count(); j++)
+                        {
+                            string stringTag = a[j];
+                            photoInstance.Tags.Add(stringTag);
+                        }
+
+                        allPhotos.Add(photoInstance);
                     }
                 }
 
