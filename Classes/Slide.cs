@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace GoogleHashCode2019.Classes {
-class Slide
+public class Slide
     {
         public List<Photo> Photos = new List<Photo>();
 
