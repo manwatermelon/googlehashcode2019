@@ -22,7 +22,7 @@ namespace googlehashcode2019 {
 
                 int photoCount = 0;
                 List<Photo> photoList = new List<Photo>();
-                List<Photo> allPhotos = new List<Photo>();
+                List<Slide> slideList = new List<Slide>();
 
                 using (var streamReader = File.OpenText(Program.RootPath + modifiedFileName + ".txt"))
                 {
@@ -32,33 +32,11 @@ namespace googlehashcode2019 {
                     for (int i = 1; i < lines.Count(); i++)
                     {
                         string line = lines[i];
-                        //Console.WriteLine(lines[i]);
-                        //lineList.Add(line);
-                        // Console.WriteLine(lines[i]);
-                        //lineList.Add(line);
 
-                        var a = line.Trim().Split(" ".ToCharArray());
-                        string ort = a[0];
-
-                        Photo photoInstance = new Photo();
-                        photoInstance.Orientation = (ort.Equals("H") == true ? Photo.ePhotoOrientation.H : Photo.ePhotoOrientation.V);
-
-                        for (int j = 2; j < a.Count(); j++)
-                        {
-                            string stringTag = a[j];
-                            photoInstance.Tags.Add(stringTag);
-                        }
-
-                        allPhotos.Add(photoInstance);
+                        Photo photo = new Photo(line, i - 1);
+                        photoList.Add(photo);
                     }
                 }
-
-                //int finalStepCount = Int32.Parse(settingsString[5]);
-                //for (int time = 0; time < finalStepCount; time++)
-                //{
-                //    // TODO: Iterate here
-                //}
-
 
                 // ============================ //
                 //         WRITE RESULT         //
@@ -71,9 +49,10 @@ namespace googlehashcode2019 {
 
                 using (TextWriter textWriter = new StreamWriter(Program.OutPath + modifiedFileName + "_out.txt"))
                 {
-                    foreach (string line in lineList)
+                    textWriter.WriteLine(slideList.Count);
+                    foreach (Slide slide in slideList)
                     {
-                        textWriter.WriteLine(line);
+                        textWriter.WriteLine(slide.ToString());
                     }
                 }
             }

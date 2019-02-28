@@ -24,7 +24,13 @@ namespace GoogleHashCode2019.Classes
 
             int tagCount = Int32.Parse(a[1]);
 
-            Tags = new List<string>();
+            this.Tags = new List<string>();
+            for (int j = 2; j < a.Count(); j++)
+            {
+                string stringTag = a[j];
+                this.Tags.Add(stringTag);
+            }
+
         }
 
         public Photo()
