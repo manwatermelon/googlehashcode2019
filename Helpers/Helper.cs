@@ -34,6 +34,30 @@ namespace GoogleHashCode2019.Helpers
             return res;
         }
 
+        public static Stats CompareSlides(Slide s1, Slide s2)
+        {
+            Stats res = new Stats();
+            List<string> tmp1 = CombineTags(s1);
+
+            var tmp2 = CombineTags(s2);
+
+            res.Common = tmp1.Intersect(tmp2).Count();
+            res.MinDiff = Math.Min(tmp1.Count - res.Common, tmp2.Count - res.Common);
+            res.MinDiff = Math.Min(res.MinDiff, res.Common);
+
+            return res;
+        }
+
+        private static List<string> CombineTags(Slide s1)
+        {
+            var tmp1 = new List<string>();
+            foreach (var p in s1.Photos)
+            {
+                tmp1.AddRange(p.Tags);
+            }
+
+            return tmp1;
+        }
 
         public static List<Slide> ProcessVList(List<Photo> vPhotos)
         {
