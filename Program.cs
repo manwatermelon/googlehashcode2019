@@ -9,6 +9,7 @@ namespace googlehashcode2019 {
     class Program
     {
         private static string RootPath = "Resources/";
+        private static string OutPath = Program.RootPath + "Output/";
 
         static void Main(string[] args)
         {
@@ -39,7 +40,17 @@ namespace googlehashcode2019 {
                     // TODO: Iterate here
                 }
 
-                using (TextWriter textWriter = new StreamWriter(Program.RootPath + modifiedFileName + ".out"))
+
+                // ============================ //
+                //         WRITE RESULT         //
+                // ============================ //
+
+                if (!Directory.Exists(Program.OutPath))
+                {
+                    Directory.CreateDirectory(Program.OutPath);
+                }
+
+                using (TextWriter textWriter = new StreamWriter(Program.OutPath + modifiedFileName + ".out"))
                 {
                     textWriter.WriteLine(String.Join(" ", settingsString));
                     foreach (string line in lineList)
