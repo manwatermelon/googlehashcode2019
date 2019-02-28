@@ -13,18 +13,19 @@ namespace googlehashcode2019 {
 
         static void Main(string[] args)
         {
-            List<string> fileNames = new List<string>() { "a_example.in", "b_should_be_easy.in",
-                "c_no_hurry.in", "d_metropolis.in", "e_high_bonus.in" };
+            List<string> fileNames = new List<string>() { "a_example.txt", "b_lovely_landscapes.txt",
+                "c_memorable_moments.txt", "d_pet_pictures.txt", "e_shiny_selfies.txt" };
             foreach (var fileName in fileNames)
             {
-                string[] settingsString;
                 var modifiedFileName = fileName.Split(".".ToCharArray()).FirstOrDefault();
 
+                int photoCount = 0;
                 List<string> lineList = new List<string>();
-                using (var streamReader = File.OpenText(Program.RootPath + modifiedFileName + ".in"))
+
+                using (var streamReader = File.OpenText(Program.RootPath + modifiedFileName + ".txt"))
                 {
-                    var lines = streamReader.ReadToEnd().Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                    settingsString = lines[0].Split(" ".ToCharArray());
+                    var lines = streamReader.ReadToEnd().Split("\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                    photoCount = Int32.Parse(lines[0]);
 
                     for (int i = 1; i < lines.Count(); i++)
                     {
@@ -34,11 +35,11 @@ namespace googlehashcode2019 {
                     }
                 }
 
-                int finalStepCount = Int32.Parse(settingsString[5]);
-                for (int time = 0; time < finalStepCount; time++)
-                {
-                    // TODO: Iterate here
-                }
+                //int finalStepCount = Int32.Parse(settingsString[5]);
+                //for (int time = 0; time < finalStepCount; time++)
+                //{
+                //    // TODO: Iterate here
+                //}
 
 
                 // ============================ //
@@ -50,9 +51,8 @@ namespace googlehashcode2019 {
                     Directory.CreateDirectory(Program.OutPath);
                 }
 
-                using (TextWriter textWriter = new StreamWriter(Program.OutPath + modifiedFileName + ".out"))
+                using (TextWriter textWriter = new StreamWriter(Program.OutPath + modifiedFileName + "_out.txt"))
                 {
-                    textWriter.WriteLine(String.Join(" ", settingsString));
                     foreach (string line in lineList)
                     {
                         textWriter.WriteLine(line);
