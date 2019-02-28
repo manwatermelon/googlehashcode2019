@@ -16,11 +16,11 @@ namespace googlehashcode2019 {
         static void Main(string[] args)
         {
             List<string> fileNames = new List<string>() {
-                "a_example.txt", 
-                "b_lovely_landscapes.txt",
-                "c_memorable_moments.txt", 
-                "d_pet_pictures.txt",  
-                "e_shiny_selfies.txt"
+               // "a_example.txt", 
+               // "b_lovely_landscapes.txt"
+                "c_memorable_moments.txt"
+              //  "d_pet_pictures.txt",  
+              //  "e_shiny_selfies.txt"
                 };
 
             foreach (var fileName in fileNames)

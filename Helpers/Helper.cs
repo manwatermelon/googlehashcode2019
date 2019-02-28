@@ -105,7 +105,7 @@ namespace GoogleHashCode2019.Helpers
                 Slide lastSlide = null;
                 List<Photo> copy = new List<Photo>(hPhoto);
                 Photo last = copy.Last();
-                do
+                while (vSlides.Count > 2 && copy.Count > 2) 
                 {
 
                     Photo bestFromHor = null;
@@ -113,7 +113,7 @@ namespace GoogleHashCode2019.Helpers
                     
                     Stats curBestStats = new Stats();
                     Stats curBestPstats = new Stats();
-                    int bestIndex = -1;
+                    int bestIndex = 0;
                     Stats s1 = new Stats();
                     for (int i = 0; i < copy.Count - 2; i++)
                     {
@@ -128,7 +128,7 @@ namespace GoogleHashCode2019.Helpers
                         }
 
                     }
-                    if (bestIndex != -1)
+                    if (copy.Count > 0)
                     {
                         bestFromHor = copy.ElementAt(bestIndex);
                     }
@@ -151,7 +151,11 @@ namespace GoogleHashCode2019.Helpers
                     if (curBestStats.MinDiff < curBestPstats.MinDiff)
                     {
                         //take vertical slide
-                        result.Add(tmpVSlide);
+                        if (!result.Contains(tmpVSlide))
+                        {
+                            result.Add(tmpVSlide);
+                        }
+
                         lastSlide = tmpVSlide;
                         vSlides.Remove(tmpVSlide);
                     }
@@ -159,14 +163,18 @@ namespace GoogleHashCode2019.Helpers
                     {
                         Slide horPhotoSlide = new Slide();
                         horPhotoSlide.Photos.Add(bestFromHor);
-                        result.Add(horPhotoSlide);
+                        if (!result.Contains(horPhotoSlide))
+                        {
+                            result.Add(horPhotoSlide);
+                        }
+
                         lastSlide = horPhotoSlide;
                         copy.Remove(bestFromHor);
                     }
 
                     last = lastSlide.Photos.Last();
 
-                } while (vSlides.Count < 2 || copy.Count < 2);
+                } 
 
             }
 
