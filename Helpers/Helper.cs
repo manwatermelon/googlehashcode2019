@@ -67,7 +67,7 @@ namespace GoogleHashCode2019.Helpers
             {
                 Photo last = copy.Last();
                 Photo best = null;
-                int bestIndex = -1;
+                int bestIndex = 0;
                 Stats s1 = new Stats();
                 for (int i = 0; i < copy.Count-2; i ++)
                 {
@@ -91,7 +91,7 @@ namespace GoogleHashCode2019.Helpers
                     copy.RemoveAt(bestIndex);
                 }
 
-            } while (copy.Count > 1);
+            } while (copy.Count > 2);
 
             return slides;
         }
