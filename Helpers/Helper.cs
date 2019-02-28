@@ -14,6 +14,7 @@ namespace GoogleHashCode2019.Helpers
                 Common = p1.Tags.Intersect(p2.Tags).Count()
             };
             stats.MinDiff = Math.Min(p1.Tags.Count - stats.Common, p2.Tags.Count - stats.Common);
+            stats.MinDiff = Math.Min(stats.MinDiff, stats.Common);
             return stats;
         }
     }
