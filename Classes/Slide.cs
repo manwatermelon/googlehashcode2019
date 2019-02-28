@@ -14,7 +14,7 @@ class Slide
             var description = string.Empty;
             foreach (Photo photo in this.Photos)
             {
-                description += photo.index + " ";
+                description += photo.Index + " ";
             }
 
             description.TrimEnd(' ');
