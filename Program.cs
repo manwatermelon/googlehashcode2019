@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GoogleHashCode2019.Classes;
+using GoogleHashCode2019.Helpers;
 
 namespace googlehashcode2019 {
     class Program
@@ -47,8 +48,14 @@ namespace googlehashcode2019 {
                 //         PROCESSING           //
                 // ============================ //
 
+                //List<Slide> slideList = SimpleMatching.GetSlides(photoList);
 
-                List<Slide> slideList = SimpleMatching.GetSlides(photoList);
+
+                List<Photo> horizontalPhotos = photoList.FindAll(photo => photo.Orientation == Photo.ePhotoOrientation.H);
+                List<Photo> verticalPhotos = photoList.FindAll(photo => photo.Orientation == Photo.ePhotoOrientation.V);
+
+
+                List<Slide> slideList = Helper.ProcessSlides(Helper.ProcessVList(verticalPhotos), horizontalPhotos);
 
 
                 // ============================ //
