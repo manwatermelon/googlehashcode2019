@@ -13,7 +13,7 @@ namespace GoogleHashCode2019.Classes
         public ePhotoOrientation Orientation;
         public List<string> Tags;
         public int Index;
-        public bool IsUsed;
+        public bool IsUsed = false;
 
         public Photo(string parameters, int index)
         {

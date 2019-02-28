@@ -4,6 +4,7 @@ namespace GoogleHashCode2019.Classes {
 public class Slide
     {
         public List<Photo> Photos = new List<Photo>();
+        public List<string> SlideTags = new List<string>();
 
         public override string ToString()
         {
@@ -15,6 +16,12 @@ public class Slide
 
             description.TrimEnd(' ');
             return description;
+        }
+
+        public void AddPhoto(Photo photo)
+        {
+            this.Photos.Add(photo);
+            this.SlideTags.AddRange(photo.Tags);
         }
     }
 }

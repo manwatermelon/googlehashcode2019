@@ -49,6 +49,7 @@
     <Compile Include="Classes\Slide.cs" />
     <Compile Include="Helpers\Helper.cs" />
     <Compile Include="Helpers\Stats.cs" />
+    <Compile Include="Classes\SimpleMatching.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

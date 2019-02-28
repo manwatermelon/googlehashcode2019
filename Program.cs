@@ -14,15 +14,14 @@ namespace googlehashcode2019 {
 
         static void Main(string[] args)
         {
-            List<string> fileNames = new List<string>() { "a_example.txt", "b_lovely_landscapes.txt",
-                "c_memorable_moments.txt", "d_pet_pictures.txt", "e_shiny_selfies.txt" };
+            List<string> fileNames = new List<string>() { /* "a_example.txt",  */"b_lovely_landscapes.txt" /*,
+                "c_memorable_moments.txt", "d_pet_pictures.txt",  "e_shiny_selfies.txt" */ };
             foreach (var fileName in fileNames)
             {
                 var modifiedFileName = fileName.Split(".".ToCharArray()).FirstOrDefault();
 
                 int photoCount = 0;
                 List<Photo> photoList = new List<Photo>();
-                List<Slide> slideList = new List<Slide>();
 
                 using (var streamReader = File.OpenText(Program.RootPath + modifiedFileName + ".txt"))
                 {
@@ -39,6 +38,14 @@ namespace googlehashcode2019 {
                 }
 
                 // ============================ //
+                //         PROCESSING           //
+                // ============================ //
+
+
+                List<Slide> slideList = SimpleMatching.GetSlides(photoList);
+
+
+                // ============================ //
                 //         WRITE RESULT         //
                 // ============================ //
 
@@ -50,10 +57,11 @@ namespace googlehashcode2019 {
                 using (TextWriter textWriter = new StreamWriter(Program.OutPath + modifiedFileName + "_out.txt"))
                 {
                     textWriter.WriteLine(slideList.Count);
-                    foreach (Slide slide in slideList)
+                    foreach (Slide s in slideList)
                     {
-                        textWriter.WriteLine(slide.ToString());
+                        textWriter.WriteLine(s.ToString());
                     }
+                    Console.WriteLine("File '" + modifiedFileName + "' processed");
                 }
             }
 
