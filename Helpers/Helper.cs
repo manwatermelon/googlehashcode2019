@@ -109,6 +109,7 @@ namespace GoogleHashCode2019.Helpers
                 List<Photo> copy = new List<Photo>(hPhoto);
                 Photo last = copy.Last();
                 bool shouldCheckV = vSlides.Count > 2;
+                int failCount = 0;
                 while ((shouldCheckV && vSlides.Count > 2) || copy.Count > 2) 
                 {
 
@@ -119,23 +120,31 @@ namespace GoogleHashCode2019.Helpers
                     Stats curBestPstats = new Stats();
                     int bestIndex = 0;
                     Stats s1 = new Stats();
-                    for (int i = 0; i < copy.Count - 2; i++)
+                    for (int i = 0; i < copy.Count - 1; i++)
                     {
                         Stats tmpStats = new Stats();
-                        Photo tmp = copy.ElementAt(i);
+
+                        Random r = new Random();
+                        int rIntIdx = r.Next(0, copy.Count - 1); //for ints
+
+                        Photo tmp = copy.ElementAt(rIntIdx);
                         tmpStats = GetIntersectWeight(last, tmp);
                         if (tmpStats.MinDiff > s1.MinDiff)
                         {
                             s1 = tmpStats;
-                            bestIndex = i;
+                            bestIndex = rIntIdx;
                             curBestStats = tmpStats;
                         }
 
-                        if (tmpStats.MinDiff > 1)
+                        if (tmpStats.MinDiff > 2)
                         {
                             break;
                         }
-                        else if (tmpStats.MinDiff == 1 && i > (copy.Count - 2) / 10)
+                        else if (tmpStats.MinDiff == 2 && i > (copy.Count - 2) / 10)
+                        {
+                            break;
+                        }
+                        else if (tmpStats.MinDiff == 1 && i > (copy.Count - 2) / 5)
                         {
                             break;
                         }
@@ -159,8 +168,7 @@ namespace GoogleHashCode2019.Helpers
                     //lastPhotoSlide.Photos.Add(last);
                     //  result.Add(lastPhotoSlide);
                     //  copy.Remove(last);vSlides
-                    if (curBestStats.MinDiff > 0)
-                    {
+
                         if (tmpVSlide != null && curBestStats.MinDiff < curBestPstats.MinDiff)
                         {
                             //take vertical slide
@@ -186,9 +194,22 @@ namespace GoogleHashCode2019.Helpers
                         }
 
                         last = lastSlide.Photos.Last();
+
+
+                    if (curBestStats.MinDiff == 0)
+                    {
+                        failCount++;
+                        if (failCount > 500)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            continue;
+                        }
                     } else
                     {
-                        break;
+                        failCount = 0;
                     }
                 } 
 
