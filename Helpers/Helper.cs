@@ -131,6 +131,14 @@ namespace GoogleHashCode2019.Helpers
                             curBestStats = tmpStats;
                         }
 
+                        if (tmpStats.MinDiff > 1)
+                        {
+                            break;
+                        }
+                        else if (tmpStats.MinDiff == 1 && i > (copy.Count - 2) / 10)
+                        {
+                            break;
+                        }
                     }
                     if (copy.Count > 0)
                     {
@@ -147,37 +155,41 @@ namespace GoogleHashCode2019.Helpers
                         }
                     }
 
-                   // Slide lastPhotoSlide = new Slide();
+                    // Slide lastPhotoSlide = new Slide();
                     //lastPhotoSlide.Photos.Add(last);
-                  //  result.Add(lastPhotoSlide);
-                  //  copy.Remove(last);vSlides
-
-                    if (tmpVSlide != null && curBestStats.MinDiff < curBestPstats.MinDiff)
+                    //  result.Add(lastPhotoSlide);
+                    //  copy.Remove(last);vSlides
+                    if (curBestStats.MinDiff > 0)
                     {
-                        //take vertical slide
-                        if (!result.Contains(tmpVSlide))
+                        if (tmpVSlide != null && curBestStats.MinDiff < curBestPstats.MinDiff)
                         {
-                            result.Add(tmpVSlide);
+                            //take vertical slide
+                            if (!result.Contains(tmpVSlide))
+                            {
+                                result.Add(tmpVSlide);
+                            }
+
+                            lastSlide = tmpVSlide;
+                            vSlides.Remove(tmpVSlide);
+                        }
+                        else
+                        {
+                            Slide horPhotoSlide = new Slide();
+                            horPhotoSlide.Photos.Add(bestFromHor);
+                            if (!result.Contains(horPhotoSlide))
+                            {
+                                result.Add(horPhotoSlide);
+                            }
+
+                            lastSlide = horPhotoSlide;
+                            copy.Remove(bestFromHor);
                         }
 
-                        lastSlide = tmpVSlide;
-                        vSlides.Remove(tmpVSlide);
-                    }
-                    else
+                        last = lastSlide.Photos.Last();
+                    } else
                     {
-                        Slide horPhotoSlide = new Slide();
-                        horPhotoSlide.Photos.Add(bestFromHor);
-                        if (!result.Contains(horPhotoSlide))
-                        {
-                            result.Add(horPhotoSlide);
-                        }
-
-                        lastSlide = horPhotoSlide;
-                        copy.Remove(bestFromHor);
+                        break;
                     }
-
-                    last = lastSlide.Photos.Last();
-
                 } 
 
             }
