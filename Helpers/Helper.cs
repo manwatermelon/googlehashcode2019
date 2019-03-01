@@ -63,36 +63,38 @@ namespace GoogleHashCode2019.Helpers
         {
             List<Photo> copy = new List<Photo>(vPhotos);
             List<Slide> slides = new List<Slide>();
-
-            while (copy.Count > 2) 
+            if (vPhotos.Count > 0)
             {
-                Photo last = copy.Last();
-                Photo best = null;
-                int bestIndex = 0;
-                Stats s1 = new Stats();
-                for (int i = 0; i < copy.Count-2; i ++)
+                do
                 {
-                    Stats tmpStats = new Stats();
-                    Photo tmp = copy.ElementAt(i);
-                    tmpStats = GetIntersectWeight(last, tmp);
-                    if (tmpStats.MinDiff > s1.MinDiff)
+                    Photo last = copy.Last();
+                    Photo best = null;
+                    int bestIndex = 0;
+                    Stats s1 = new Stats();
+                    for (int i = 0; i < copy.Count - 2; i++)
                     {
-                        s1 = tmpStats;
-                        bestIndex = i;
+                        Stats tmpStats = new Stats();
+                        Photo tmp = copy.ElementAt(i);
+                        tmpStats = GetIntersectWeight(last, tmp);
+                        if (tmpStats.MinDiff > s1.MinDiff)
+                        {
+                            s1 = tmpStats;
+                            bestIndex = i;
+                        }
+
+                    }
+                    if (bestIndex != -1)
+                    {
+                        best = copy.ElementAt(bestIndex);
+                        Slide slide = new Slide();
+                        slide.Photos = new List<Photo>() { last, best };
+                        slides.Add(slide);
+                        copy.RemoveAt(copy.Count - 1);
+                        copy.RemoveAt(bestIndex);
                     }
 
-                }
-                if (bestIndex != -1)
-                {
-                    best = copy.ElementAt(bestIndex);
-                    Slide slide = new Slide();
-                    slide.Photos = new List<Photo>() { last, best };
-                    slides.Add(slide);
-                    copy.RemoveAt(copy.Count - 1);
-                    copy.RemoveAt(bestIndex);
-                }
-
-            } 
+                } while (copy.Count > 2);
+            }
 
             return slides;
         }
@@ -101,12 +103,13 @@ namespace GoogleHashCode2019.Helpers
         {
             List<Slide> result = new List<Slide>();
 
-            if (hPhoto.Count > 0 || vSlides.Count > 0)
+            if (hPhoto.Count > 0)
             {
                 Slide lastSlide = null;
                 List<Photo> copy = new List<Photo>(hPhoto);
                 Photo last = copy.Last();
-                while (vSlides.Count > 2 && copy.Count > 2) 
+                bool shouldCheckV = vSlides.Count > 2;
+                while ((shouldCheckV && vSlides.Count > 2) || copy.Count > 2) 
                 {
 
                     Photo bestFromHor = null;
@@ -144,12 +147,12 @@ namespace GoogleHashCode2019.Helpers
                         }
                     }
 
-                    Slide lastPhotoSlide = new Slide();
-                    lastPhotoSlide.Photos.Add(last);
-                    //result.Add(lastPhotoSlide);
-                    copy.Remove(last);
+                   // Slide lastPhotoSlide = new Slide();
+                    //lastPhotoSlide.Photos.Add(last);
+                  //  result.Add(lastPhotoSlide);
+                  //  copy.Remove(last);vSlides
 
-                    if (curBestStats.MinDiff < curBestPstats.MinDiff)
+                    if (tmpVSlide != null && curBestStats.MinDiff < curBestPstats.MinDiff)
                     {
                         //take vertical slide
                         if (!result.Contains(tmpVSlide))
